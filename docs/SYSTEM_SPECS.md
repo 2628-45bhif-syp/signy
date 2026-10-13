@@ -1,33 +1,13 @@
-# Pflichtenheft
+# Pflichtenheft (System Specification)
 
-## Ausgangssituation
+> [!NOTE]
+> Die vollständige, maßgebliche und strukturierte System-Spezifikation (Pflichtenheft, Entwurf und Projekthandbuch) befindet sich in [sysspec.md](sysspec.md).
 
-Rund 10.000 - 15.000 gehörlose Menschen leben in Österreich. Gebärdensprache ist ihre Muttersprache — jedoch gibt es nur rund 10.000 Hörende die sie beherrschen.
+## Übersicht & Kernpunkte
 
-[Daten lt. kinderhände](https://kinderhaende.at/faqs-glossar/)
+* **Projekt:** Signy — Echtzeit-Gebärdensprach-Übersetzer für Österreichische Gebärdensprache (ÖGS).
+* **Ausgangssituation:** Rund 10.000 bis 15.000 gehörlose Menschen in Österreich stehen nur ca. 10.000 Hörenden gegenüber, die ÖGS beherrschen ([Daten lt. kinderhände](https://kinderhaende.at/faqs-glossar/)).
+* **Problemstellung:** Bestehende Systeme übersetzen meist nur statische Einzelwörter ohne Grammatik und Syntax. In Gebärdensprache tragen die Hände das Vokabular, aber das Gesicht bestimmt die Grammatik (Fragen, Verneinungen, Emotion).
+* **Lösung:** Multimodale Erfassung (MediaPipe Tracking mit Landmark-Pruning + Gesichts-Blendshapes), Gestenaktivitätserkennung (GAD mit ~0.8s Pause) und halluzinationsfreie Satzsynthese in ganze deutsche Sätze bei Zwei-Wege-Kommunikation.
 
-## Istzustand  
-
-Es gibt keinen verlässlichen Gäberdenspracheübersetzer, welcher volle Sätze übersetzt.  
-
-## Problemstellung
-
-Es gibt eine Lösung zu finden welche es erlaubt Gebärdesprache in volle Sätze zu übersätzen und dabei die richtige Emotionen zu verschriftlichen. 
-
-## Aufgabenstellung  
-
-### Funktionale Anforderungen
-
-`Gäberde ablesen: Die Bewegungen werden aufgenommen und zu die richtigen Gebärden gemappt`  
-
-`Mimik ablesen: Der Gesicht wird für die Emotionen abgelesen um die Grammatik zu bestimmen`  
-
-`Satz formulieren: Die Gebärden werden anhand der Emotionen in einen ganzen Satz formuliert.`  
-
-![Diagram]()
-
-### Nicht Funktionale Anforderungen
-
-## Ziele [Wirkung]
-
-## Rahmenbedingungen
+Für alle Detailanforderungen (Funktionale & Nichtfunktionale Anforderungen, Systemarchitektur, Datenmodelle, Zeitplan M1–M5 und Rollenverteilung), siehe [docs/sysspec.md](sysspec.md).
