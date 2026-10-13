@@ -53,7 +53,7 @@ flowchart LR
 The project presentation is located in `pitch/`. Run locally:
 
 ```bash
-./pitch/start_presentation.sh
+./pitch/start-presentation.sh
 ```
 
 Or start a local HTTP server manually:
