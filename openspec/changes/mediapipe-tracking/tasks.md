@@ -7,15 +7,15 @@ Each group ends with a commit (Conventional Commits, see `AGENTS.md`) and a push
 - [x] 1.1 Fetch and create branch `feat/15-mediapipe-tracking` from `origin/dev`; verify with `git branch --show-current` and that `git merge-base HEAD origin/dev` equals `origin/dev`
 - [x] 1.2 Create `web/` with Vite, React, TypeScript, and Tailwind (npm); verify `npm install` and `npm run build` succeed in `web/`
 - [x] 1.3 Add `web/.gitignore` (node_modules, dist, `public/mediapipe/wasm/`) and a short `web/README.md` with install, dev, and build commands; verify `git status` shows no generated files and the README commands run as written
-- [ ] 1.4 Commit `chore(web): scaffold vite react typescript app` and push the branch; verify the branch is visible on `origin`
+- [x] 1.4 Commit `chore(web): scaffold vite react typescript app` and push the branch; verify the branch is visible on `origin`
 
 ## 2. Tracking module
 
-- [ ] 2.1 Add `@mediapipe/tasks-vision` and a `web/scripts/copy-mediapipe-wasm.mjs` script, wired to run before `dev` and `build`; verify `public/mediapipe/wasm/` contains the `vision_wasm_*` files after `npm run dev` starts
-- [ ] 2.2 Add `holistic_landmarker.task` to `web/public/models/` with a `README` noting source URL and download date; verify the file is about 13.7 MB and loads at `/models/holistic_landmarker.task` in the dev server
-- [ ] 2.3 Define `TrackingFrame` in `web/src/tracking/types.ts` (timestamp, face, 52 blendshapes, pose, leftHand, rightHand; unpruned) and document the hand-label convention; verify `npm run build` type-checks
-- [ ] 2.4 Implement `createTracker` in `web/src/tracking/createTracker.ts`: load from local files, GPU delegate with CPU fallback, `outputFaceBlendshapes` on, `detect(video, timestampMs)` returning a `TrackingFrame`; verify with a Vitest unit test that maps fake Holistic results (full, no hands, empty) to the expected `TrackingFrame` with no errors
-- [ ] 2.5 Commit `feat(tracking): add holistic landmark tracker` and push; verify tests and build pass before pushing
+- [x] 2.1 Add `@mediapipe/tasks-vision` and a `web/scripts/copy-mediapipe-wasm.mjs` script, wired to run before `dev` and `build`; verify `public/mediapipe/wasm/` contains the `vision_wasm_*` files after `npm run dev` starts
+- [x] 2.2 Add `holistic_landmarker.task` to `web/public/models/` with a `README` noting source URL and download date; verify the file is about 13.7 MB and loads at `/models/holistic_landmarker.task` in the dev server
+- [x] 2.3 Define `TrackingFrame` in `web/src/tracking/types.ts` (timestamp, face, 52 blendshapes, pose, leftHand, rightHand; unpruned) and document the hand-label convention; verify `npm run build` type-checks
+- [x] 2.4 Implement `createTracker` in `web/src/tracking/createTracker.ts`: load from local files, GPU delegate with CPU fallback, `outputFaceBlendshapes` on, `detect(video, timestampMs)` returning a `TrackingFrame`; verify with a Vitest unit test that maps fake Holistic results (full, no hands, empty) to the expected `TrackingFrame` with no errors
+- [x] 2.5 Commit `feat(tracking): add holistic landmark tracker` and push; verify tests and build pass before pushing
 
 ## 3. Check page with skeleton overlay
 
