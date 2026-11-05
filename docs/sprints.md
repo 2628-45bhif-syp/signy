@@ -4,7 +4,7 @@
 **20.10.26**
 
 - USER STORY #1 - #13, #15
-- USER STORY #
+- USER STORY #19
 
 ### Summary
 
