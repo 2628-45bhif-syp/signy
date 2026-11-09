@@ -22,6 +22,6 @@
 
 ## 4. Verification and Documentation
 
-- [ ] 4.1 Verify offline-only execution: run `npm run build && npm run preview` in `frontend/`, inspect network tab to confirm no outbound requests, and verify tracking runs while offline
-- [ ] 4.2 Document tracking architecture and downstream contract for issue #14 (pruning) and issue #16 (performance) in `frontend/README.md`
-- [ ] 4.3 Commit `docs(frontend): document tracking integration contract`
+- [x] 4.1 Verify offline-only execution: run `npm run build && npm run preview` in `frontend/`, inspect network tab to confirm no outbound requests, and verify tracking runs while offline
+- [x] 4.2 Document tracking architecture and downstream contract for issue #14 (pruning) and issue #16 (performance) in `frontend/README.md`
+- [x] 4.3 Commit `docs(frontend): document tracking integration contract`
