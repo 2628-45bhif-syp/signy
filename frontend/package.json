@@ -7,9 +7,13 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "copy-wasm": "node scripts/copy-mediapipe-wasm.mjs",
+    "predev": "npm run copy-wasm",
+    "prebuild": "npm run copy-wasm"
   },
   "dependencies": {
+    "@mediapipe/tasks-vision": "^1.2.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

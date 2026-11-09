@@ -4,3 +4,5 @@ dist-ssr
 *.local
 coverage
 *.tsbuildinfo
+public/mediapipe/wasm/
+
