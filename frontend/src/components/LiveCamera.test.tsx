@@ -1,6 +1,22 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { LiveCamera } from './LiveCamera';
+
+const mockUseTracker = vi.fn().mockReturnValue({
+  tracker: {
+    delegate: 'GPU',
+    detect: vi.fn(),
+    close: vi.fn(),
+  },
+  delegate: 'GPU',
+  isLoading: false,
+  error: null,
+  lastFrame: null,
+});
+
+vi.mock('../hooks/useTracker', () => ({
+  useTracker: (...args: unknown[]) => mockUseTracker(...args),
+}));
 
 describe('LiveCamera', () => {
   const stopMock = vi.fn();
@@ -10,6 +26,17 @@ describe('LiveCamera', () => {
 
   beforeEach(() => {
     stopMock.mockReset();
+    mockUseTracker.mockReturnValue({
+      tracker: {
+        delegate: 'GPU',
+        detect: vi.fn(),
+        close: vi.fn(),
+      },
+      delegate: 'GPU',
+      isLoading: false,
+      error: null,
+      lastFrame: null,
+    });
     Object.defineProperty(navigator, 'mediaDevices', {
       writable: true,
       configurable: true,
@@ -36,6 +63,43 @@ describe('LiveCamera', () => {
     await waitFor(() => {
       expect(video.srcObject).toBe(mockStream);
     });
+  });
+
+  it('renders tracking overlay canvas and compute delegate badge', async () => {
+    render(<LiveCamera />);
+
+    const canvas = screen.getByLabelText('Tracking landmark overlay');
+    expect(canvas).toBeInTheDocument();
+    expect(canvas).toHaveAttribute('width', '640');
+    expect(canvas).toHaveAttribute('height', '480');
+
+    expect(screen.getByText('GPU')).toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(screen.queryByText('Starting camera...')).not.toBeInTheDocument();
+    });
+  });
+
+  it('toggles skeleton overlay visibility on button click', async () => {
+    render(<LiveCamera />);
+
+    await waitFor(() => {
+      expect(screen.queryByText('Starting camera...')).not.toBeInTheDocument();
+    });
+
+    const button = screen.getByRole('button', { name: /skeleton/i });
+    expect(button).toHaveTextContent('Hide Skeleton');
+    expect(button).toHaveAttribute('aria-pressed', 'true');
+
+    act(() => {
+      fireEvent.click(button);
+    });
+
+    expect(button).toHaveTextContent('Show Skeleton');
+    expect(button).toHaveAttribute('aria-pressed', 'false');
+
+    const canvas = screen.getByLabelText('Tracking landmark overlay');
+    expect(canvas).toHaveStyle({ display: 'none' });
   });
 
   it('renders an alert when camera permission fails', async () => {

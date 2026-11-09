@@ -16,9 +16,9 @@
 
 ## 3. React Integration and Live Camera Overlay
 
-- [ ] 3.1 Implement `useTracker` hook in `frontend/src/hooks/useTracker.ts` managing tracker initialization, cleanup, and frame loop (`requestVideoFrameCallback` with `requestAnimationFrame` fallback); verify with unit tests in `frontend/src/hooks/useTracker.test.tsx`
-- [ ] 3.2 Update `frontend/src/components/LiveCamera.tsx` and styles in `frontend/src/styles.css` to render an aligned overlay canvas, skeleton visibility toggle, and GPU/CPU indicator badge; verify tests in `frontend/src/components/LiveCamera.test.tsx` pass
-- [ ] 3.3 Commit `feat(frontend): integrate live tracking overlay into camera view`
+- [x] 3.1 Implement `useTracker` hook in `frontend/src/hooks/useTracker.ts` managing tracker initialization, cleanup, and frame loop (`requestVideoFrameCallback` with `requestAnimationFrame` fallback); verify with unit tests in `frontend/src/hooks/useTracker.test.tsx`
+- [x] 3.2 Update `frontend/src/components/LiveCamera.tsx` and styles in `frontend/src/styles.css` to render an aligned overlay canvas, skeleton visibility toggle, and GPU/CPU indicator badge; verify tests in `frontend/src/components/LiveCamera.test.tsx` pass
+- [x] 3.3 Commit `feat(frontend): integrate live tracking overlay into camera view`
 
 ## 4. Verification and Documentation
 
