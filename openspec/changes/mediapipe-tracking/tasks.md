@@ -9,10 +9,10 @@
 
 ## 2. Tracking Core Module
 
-- [ ] 2.1 Define `TrackingFrame` and landmarker interfaces in `frontend/src/tracking/types.ts`; verify `npm run build` passes TypeScript compilation
-- [ ] 2.2 Implement `createTracker` in `frontend/src/tracking/createTracker.ts` to load local WASM/model, attempt GPU delegate with CPU fallback, and return `detect(video, timestampMs)`; verify with unit tests in `frontend/src/tracking/createTracker.test.ts`
-- [ ] 2.3 Implement `drawFrame` in `frontend/src/tracking/drawFrame.ts` using MediaPipe `DrawingUtils` to draw pose, hands, and face connections on an overlay canvas; verify with unit tests in `frontend/src/tracking/drawFrame.test.ts`
-- [ ] 2.4 Commit `feat(tracking): implement holistic tracker and canvas overlay renderer`
+- [x] 2.1 Define `TrackingFrame` and landmarker interfaces in `frontend/src/tracking/types.ts`; verify `npm run build` passes TypeScript compilation
+- [x] 2.2 Implement `createTracker` in `frontend/src/tracking/createTracker.ts` to load local WASM/model, attempt GPU delegate with CPU fallback, and return `detect(video, timestampMs)`; verify with unit tests in `frontend/src/tracking/createTracker.test.ts`
+- [x] 2.3 Implement `drawFrame` in `frontend/src/tracking/drawFrame.ts` using MediaPipe `DrawingUtils` to draw pose, hands, and face connections on an overlay canvas; verify with unit tests in `frontend/src/tracking/drawFrame.test.ts`
+- [x] 2.4 Commit `feat(tracking): implement holistic tracker and canvas overlay renderer`
 
 ## 3. React Integration and Live Camera Overlay
 
