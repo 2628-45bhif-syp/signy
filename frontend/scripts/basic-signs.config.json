@@ -1,0 +1,39 @@
+[
+  { "title": "Was", "category": "Fragen" },
+  { "title": "Wer", "category": "Fragen" },
+  { "title": "Wann", "category": "Fragen" },
+
+  { "title": "Ich", "category": "Personen" },
+  { "title": "Wir", "category": "Personen" },
+  { "title": "Mama", "category": "Personen" },
+  { "title": "Papa", "category": "Personen" },
+  { "title": "Mutter", "category": "Personen" },
+  { "title": "Vater", "category": "Personen" },
+  { "title": "Familie", "category": "Personen" },
+  { "title": "Freund", "identifier": "handsup-oegs-video-14486", "category": "Personen" },
+
+  { "title": "Bitte", "identifier": "handsup-oegs-video-13641", "category": "Kommunikation" },
+  { "title": "Nein", "category": "Kommunikation" },
+  { "title": "Nicht", "category": "Kommunikation" },
+  { "title": "Begrüßen", "category": "Kommunikation" },
+  { "title": "Kennenlernen", "category": "Kommunikation" },
+  { "title": "Verstehen", "category": "Kommunikation" },
+  { "title": "Lernen", "category": "Kommunikation" },
+  { "title": "Helfen", "category": "Kommunikation" },
+
+  { "title": "Wasser", "category": "Alltag" },
+  { "title": "Trinken", "category": "Alltag" },
+  { "title": "WC", "category": "Alltag" },
+  { "title": "Schule", "category": "Alltag" },
+  { "title": "Arbeiten", "category": "Alltag" },
+  { "title": "Heute", "category": "Alltag" },
+  { "title": "Gestern", "category": "Alltag" },
+  { "title": "Nacht", "category": "Alltag" },
+  { "title": "Schlecht", "category": "Alltag" },
+
+  { "title": "Krank", "identifier": "handsup-oegs-video-13915", "category": "Notfall" },
+  { "title": "Schmerz", "category": "Notfall" },
+  { "title": "Krankenhaus", "category": "Notfall" },
+  { "title": "Polizei", "category": "Notfall" },
+  { "title": "Rettung", "category": "Notfall" }
+]
