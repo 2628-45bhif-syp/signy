@@ -17,10 +17,12 @@ describe('App UI navigation', () => {
         getUserMedia: vi.fn().mockResolvedValue(mockStream),
       },
     });
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true, json: async () => [] }));
   });
 
   afterEach(() => {
     vi.restoreAllMocks();
+    vi.unstubAllGlobals();
   });
 
   it('shows the Camera / Translator view by default and switches to the Library view via navigation buttons', async () => {

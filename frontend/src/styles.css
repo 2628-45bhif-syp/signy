@@ -209,24 +209,11 @@ body {
   line-height: 1.5;
 }
 
-/* Library Shell (UI only) */
-.library-shell {
-  flex: 1;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  padding: 32px 20px;
+/* Sign Library */
+.sign-library {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: 12px;
-}
-
-.library-icon {
-  font-size: 2.5rem;
-  margin-bottom: 4px;
+  gap: 20px;
 }
 
 .library-title {
@@ -235,11 +222,110 @@ body {
   color: var(--text-primary);
 }
 
-.library-subtitle {
-  font-size: 0.95rem;
+.sign-status {
   color: var(--text-dim);
-  max-width: 320px;
-  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+.sign-category {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sign-category-title {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent-light);
+  font-weight: 700;
+}
+
+.sign-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sign-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+}
+
+.sign-media {
+  position: relative;
+  flex: 0 0 112px;
+  aspect-ratio: 1;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--bg-surface);
+}
+
+.sign-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sign-toggle {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: rgba(10, 10, 26, 0.35);
+  color: var(--text-primary);
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.sign-toggle.playing {
+  background: transparent;
+  color: transparent;
+}
+
+.sign-toggle:focus-visible {
+  outline: 2px solid var(--accent-light);
+  outline-offset: -2px;
+  color: var(--text-primary);
+}
+
+.sign-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sign-gloss {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.sign-error {
+  font-size: 0.8rem;
+  color: var(--red);
+}
+
+.sign-attribution {
+  font-size: 0.72rem;
+  line-height: 1.4;
+  color: var(--text-dim);
+  overflow-wrap: anywhere;
+}
+
+.sign-attribution a {
+  color: var(--accent-light);
 }
 
 /* Bottom Navigation Bar (Mobile-first) */

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { LiveCamera } from './components/LiveCamera';
+import { SignLibrary } from './components/SignLibrary';
 
 type ActiveSection = 'translator' | 'library';
 
@@ -36,15 +37,7 @@ export default function App() {
           </section>
         ) : (
           <section className="view-section" aria-label="Sign Library">
-            <div className="library-shell">
-              <span className="library-icon" aria-hidden="true">
-                📚
-              </span>
-              <h1 className="library-title">Sign Library</h1>
-              <p className="library-subtitle">
-                Browse and explore ÖGS signs here soon.
-              </p>
-            </div>
+            <SignLibrary />
           </section>
         )}
       </main>
