@@ -24,4 +24,4 @@ If everything is in order, we merge the branch with main and have a new release.
 In case we have any major bugs in the release branch (unlikely but still possible) we create a ***Hotfix branch*** from main and merge that with main and dev as soon as the bug is fixed.  
 We'll use the naming-convention "Hotfix/***mainVersionNumber***"  (example: "Hotfix/2.0) 
 
-As soon as a branch becomes obsolete (no more commits are going to happen on it) we **delete** it to keep everything structured.
+Make sure **not to delete** any branches unless needed.
