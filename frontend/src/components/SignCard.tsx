@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { Play, Pause, ExternalLink, AlertCircle } from 'lucide-react';
 import type { Sign } from '../hooks/useSigns';
 
 interface SignCardProps {
@@ -50,24 +51,38 @@ export function SignCard({ sign }: SignCardProps) {
           aria-label={`${isPlaying ? 'Pause' : 'Play'} sign for ${sign.gloss}`}
           onClick={togglePlayback}
         >
-          <span aria-hidden="true">{isPlaying ? '❚❚' : '▶'}</span>
+          <span className="sign-toggle-icon" aria-hidden="true">
+            {isPlaying ? (
+              <Pause size={18} fill="currentColor" strokeWidth={0} />
+            ) : (
+              <Play size={18} fill="currentColor" strokeWidth={0} className="play-triangle" />
+            )}
+          </span>
         </button>
       </div>
       <div className="sign-info">
         <h3 className="sign-gloss">{sign.gloss}</h3>
         {hasFailed && (
           <p role="alert" className="sign-error">
-            Video unavailable.
+            <AlertCircle size={13} aria-hidden="true" />
+            <span>Video unavailable.</span>
           </p>
         )}
         <p className="sign-attribution">
-          {sign.creator} ·{' '}
+          <span>{sign.creator}</span>
+          <span className="attribution-sep" aria-hidden="true">
+            ·
+          </span>
           <a href={sign.sourceUrl} target="_blank" rel="noopener noreferrer">
-            Source
-          </a>{' '}
-          ·{' '}
+            <span>Source</span>
+            <ExternalLink size={10} className="external-link-icon" aria-hidden="true" />
+          </a>
+          <span className="attribution-sep" aria-hidden="true">
+            ·
+          </span>
           <a href={sign.licenseUrl} target="_blank" rel="noopener noreferrer">
-            {sign.license}
+            <span>{sign.license}</span>
+            <ExternalLink size={10} className="external-link-icon" aria-hidden="true" />
           </a>
         </p>
       </div>

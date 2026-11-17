@@ -6,23 +6,24 @@
     <title>Signy — Sign Language Translator</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css" id="theme">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --accent: #6C63FF;
-            --accent-light: #8B83FF;
-            --accent-glow: rgba(108, 99, 255, 0.3);
-            --green: #00D68F;
-            --red: #FF6B6B;
-            --orange: #FFA94D;
-            --bg-dark: #0a0a1a;
-            --bg-card: rgba(255, 255, 255, 0.05);
-            --text-dim: #8892b0;
+            --accent: #3B82F6;
+            --accent-light: #60A5FA;
+            --accent-glow: rgba(59, 130, 246, 0.25);
+            --green: #10B981;
+            --green-glow: rgba(16, 185, 129, 0.25);
+            --red: #F43F5E;
+            --orange: #F59E0B;
+            --bg-dark: #090D16;
+            --bg-card: rgba(15, 23, 42, 0.65);
+            --text-dim: #94A3B8;
         }
 
-        .reveal { font-family: 'Inter', sans-serif; font-size: 32px; color: #ccd6f6; }
+        .reveal { font-family: 'Inter', sans-serif; font-size: 32px; color: #cbd5e1; }
         .reveal .slides { text-align: left; }
-        .reveal h1, .reveal h2, .reveal h3 { font-family: 'Inter', sans-serif; font-weight: 800; text-transform: none; letter-spacing: -0.02em; color: #e6f1ff; }
+        .reveal h1, .reveal h2, .reveal h3 { font-family: 'Inter', sans-serif; font-weight: 800; text-transform: none; letter-spacing: -0.02em; color: #f8fafc; }
         .reveal h1 { font-size: 2.8em; line-height: 1.1; }
         .reveal h2 { font-size: 1.8em; line-height: 1.2; margin-bottom: 0.6em; }
         .reveal p, .reveal li { font-weight: 300; line-height: 1.6; font-size: 0.78em; }
@@ -39,40 +40,50 @@
 
         /* Title Slide */
         .title-slide { text-align: center !important; }
-        .title-slide h1 { font-size: 4em; background: linear-gradient(135deg, #6C63FF, #00D68F); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.1em; }
+        .title-slide h1 { font-size: 4em; background: linear-gradient(135deg, #38BDF8, #3B82F6, #6366F1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.1em; letter-spacing: -0.03em; }
         .title-slide .subtitle { font-size: 1.1em; color: var(--text-dim); font-weight: 300; margin-bottom: 1.5em; }
 
+        .brand-icon-wrapper {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 72px;
+            height: 72px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(99, 102, 241, 0.2));
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            box-shadow: 0 0 24px var(--accent-glow);
+            color: #38bdf8;
+            margin-bottom: 0.4em;
+        }
+
         /* Cards */
-        .card { background: var(--bg-card); border: 1px solid rgba(108, 99, 255, 0.2); border-radius: 16px; padding: 1.2em 1.5em; backdrop-filter: blur(10px); }
-        .card.highlight { border-color: var(--accent); box-shadow: 0 0 30px var(--accent-glow); }
+        .card { background: var(--bg-card); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 1.2em 1.5em; backdrop-filter: blur(14px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .card.highlight { border-color: rgba(59, 130, 246, 0.5); box-shadow: 0 0 30px var(--accent-glow); }
 
         /* Grids */
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1em; align-items: start; }
         .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.8em; align-items: start; }
 
         /* Emotion Row */
-        .emotion-row { display: flex; align-items: center; gap: 0.5em; margin: 0.4em 0; font-size: 0.75em; }
-        .emotion-row .emoji { font-size: 1.8em; }
+        .emotion-row { display: flex; align-items: center; gap: 0.8em; margin: 0.5em 0; font-size: 0.75em; }
+        .emotion-row .icon-wrapper { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); }
         .emotion-row .arrow-txt { color: var(--accent); font-weight: 600; }
-        .emotion-row .result { font-style: italic; color: #e6f1ff; }
+        .emotion-row .result { font-style: italic; color: #f8fafc; }
 
         /* Highlight Box */
-        .highlight-box { background: linear-gradient(135deg, rgba(108,99,255,0.15), rgba(0,214,143,0.1)); border-left: 4px solid var(--accent); padding: 0.8em 1.2em; border-radius: 0 12px 12px 0; margin: 0.8em 0; font-size: 0.8em; }
+        .highlight-box { background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(16, 185, 129, 0.08)); border-left: 4px solid var(--accent); padding: 0.8em 1.2em; border-radius: 0 12px 12px 0; margin: 0.8em 0; font-size: 0.8em; display: flex; align-items: center; gap: 0.6em; }
 
         /* --- BIG PIPELINE GRAPHIC --- */
         .pipeline-container { display: flex; align-items: center; justify-content: space-between; width: 100%; margin-top: 1.5em; gap: 0.5em; }
-        .pl-box { background: rgba(255,255,255,0.05); border: 2px solid rgba(108, 99, 255, 0.4); border-radius: 16px; padding: 1em 0.5em; text-align: center; width: 22%; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.3s ease; }
+        .pl-box { background: var(--bg-card); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 1.2em 0.6em; text-align: center; width: 22%; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.3s ease; }
         .pl-box:hover { transform: translateY(-5px); border-color: var(--accent-light); }
-        .pl-box.accent-box { border-color: var(--green); background: rgba(0, 214, 143, 0.05); }
-        .pl-box.orange-box { border-color: var(--orange); background: rgba(255, 169, 77, 0.05); }
-        .pl-icon { font-size: 2.2em; display: block; margin-bottom: 0.2em; }
+        .pl-box.accent-box { border-color: rgba(16, 185, 129, 0.4); background: rgba(16, 185, 129, 0.06); }
+        .pl-box.orange-box { border-color: rgba(245, 158, 11, 0.4); background: rgba(245, 158, 11, 0.06); }
+        .pl-icon-container { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 12px; background: rgba(255, 255, 255, 0.05); margin-bottom: 0.6em; }
         .pl-title { font-weight: 800; font-size: 0.75em; color: #fff; margin-bottom: 0.4em; line-height: 1.1; }
         .pl-desc { font-size: 0.5em; color: var(--text-dim); line-height: 1.4; }
         .pl-arrow { color: var(--accent); font-size: 1.5em; font-weight: 900; }
-
-        .pl-stack { display: flex; flex-direction: column; gap: 0.8em; width: 25%; }
-        .pl-stack .pl-box { width: 100%; padding: 0.8em 0.5em; }
-        .pl-stack .pl-icon { font-size: 1.6em; }
 
         .end-slide { text-align: center !important; }
     </style>
@@ -83,8 +94,10 @@
 
 <!-- ============================================ -->
 <!-- SLIDE 1: Title -->
-<section class="title-slide" data-background-color="#0a0a1a">
-    <span style="font-size: 3em; display: block; margin-bottom: 0.2em;">🤟</span>
+<section class="title-slide" data-background-color="#090D16">
+    <div class="brand-icon-wrapper">
+        <i data-lucide="hand" style="width: 40px; height: 40px;"></i>
+    </div>
     <h1>Signy</h1>
     <div class="subtitle">
         Gebärdensprache in Echtzeit übersetzen<br>
@@ -94,32 +107,37 @@
 
 <!-- ============================================ -->
 <!-- SLIDE 2: Problem -->
-<section data-background-color="#0a0a1a">
+<section data-background-color="#090D16">
     <div class="section-label">Das Problem</div>
     <h2>Kommunikation darf keine<br><span class="accent">Barriere</span> sein</h2>
     <div class="grid-2">
         <div class="card">
-            <div style="font-size:2em; margin-bottom:0.2em">🧏</div>
+            <div style="margin-bottom:0.4em; color: var(--accent-light);">
+                <i data-lucide="users" style="width: 32px; height: 32px;"></i>
+            </div>
             <p style="font-size:0.72em; margin:0">Rund <span class="accent">10.000 gehörlose</span> Menschen leben in Österreich. Gebärdensprache ist ihre Muttersprache — doch kaum Hörende beherrschen sie.</p>
         </div>
         <div class="card">
-            <div style="font-size:2em; margin-bottom:0.2em">🚧</div>
+            <div style="margin-bottom:0.4em; color: var(--red);">
+                <i data-lucide="shield-alert" style="width: 32px; height: 32px;"></i>
+            </div>
             <p style="font-size:0.72em; margin:0">Alltägliche Situationen werden zur <span class="red">Hürde</span>. Dolmetscher sind teuer und im Alltag nicht immer verfügbar.</p>
         </div>
     </div>
-
 </section>
 
 <!-- ============================================ -->
 <!-- SLIDE 3: The Pipeline Graphic -->
-<section data-background-color="#0a0a1a">
+<section data-background-color="#090D16">
     <div class="section-label">Funktionsweise</div>
     <h2>Wie Signy übersetzt: <span class="green">Schritt für Schritt</span></h2>
 
     <div class="pipeline-container">
         <!-- 1. Tracking -->
         <div class="pl-box">
-            <span class="pl-icon">🖐️</span>
+            <div class="pl-icon-container" style="color: var(--accent-light);">
+                <i data-lucide="hand" style="width: 24px; height: 24px;"></i>
+            </div>
             <div class="pl-title">1. Wörter mitlesen</div>
             <div class="pl-desc">Kamera scannt Hände live und sammelt Gebärden<br><em>(z. B. "DU", "MITKOMMEN")</em></div>
         </div>
@@ -128,7 +146,9 @@
 
         <!-- 2. Pause -->
         <div class="pl-box accent-box">
-            <span class="pl-icon">⏸️</span>
+            <div class="pl-icon-container" style="color: var(--green);">
+                <i data-lucide="pause-circle" style="width: 24px; height: 24px;"></i>
+            </div>
             <div class="pl-title">2. Pause abwarten</div>
             <div class="pl-desc">Hände ruhen kurz (~0.8s)?<br>➔ Signal: Satz ist fertig,<br>jetzt übersetzen!</div>
         </div>
@@ -137,7 +157,9 @@
 
         <!-- 3. Mimik -->
         <div class="pl-box accent-box">
-            <span class="pl-icon">🎭</span>
+            <div class="pl-icon-container" style="color: var(--green);">
+                <i data-lucide="smile" style="width: 24px; height: 24px;"></i>
+            </div>
             <div class="pl-title">3. Mimik prüfen</div>
             <div class="pl-desc">Gesicht liefert die Grammatik:<br>Aussage, Frage oder<br>Verneinung?</div>
         </div>
@@ -146,20 +168,23 @@
 
         <!-- 4. NLP -->
         <div class="pl-box orange-box">
-            <span class="pl-icon">💬</span>
+            <div class="pl-icon-container" style="color: var(--orange);">
+                <i data-lucide="message-square-text" style="width: 24px; height: 24px;"></i>
+            </div>
             <div class="pl-title">4. Satz übersetzen</div>
             <div class="pl-desc">Spezialisiertes Mini-Modell baut deutschen Satz –<br><strong>ohne Phantasiewörter</strong></div>
         </div>
     </div>
 
     <div class="highlight-box" style="margin-top: 1.2em; font-size: 0.72em;">
-        💡 <strong>Wie ein menschlicher Dolmetscher:</strong> Nicht Wort für Wort stammeln, sondern den vollen Gedanken und die Mimik abwarten – und dann in einem flüssigen deutschen Satz ausgeben.
+        <i data-lucide="sparkles" style="width: 20px; height: 20px; color: var(--orange); flex-shrink: 0;"></i>
+        <span><strong>Wie ein menschlicher Dolmetscher:</strong> Nicht Wort für Wort stammeln, sondern den vollen Gedanken und die Mimik abwarten – und dann in einem flüssigen deutschen Satz ausgeben.</span>
     </div>
 </section>
 
 <!-- ============================================ -->
 <!-- SLIDE 4: Emotion & Mimik Demo -->
-<section data-background-color="#0a0a1a">
+<section data-background-color="#090D16">
     <div class="section-label">Warum Mimik unverzichtbar ist</div>
     <h2>Das Gesicht macht die <span class="accent">Grammatik</span></h2>
 
@@ -167,35 +192,43 @@
 
     <div class="card highlight" style="margin: 0.8em 0; padding: 1em;">
         <div class="emotion-row fragment" data-fragment-index="1">
-            <span class="emoji">😐</span> <span class="arrow-txt">neutral →</span>
+            <div class="icon-wrapper" style="color: var(--text-dim);"><i data-lucide="meh" style="width: 20px; height: 20px;"></i></div>
+            <span class="arrow-txt">neutral →</span>
             <span class="result">"Du kommst mit." <span class="dim" style="font-size:0.85em;">(Einfache Aussage)</span></span>
         </div>
         <div class="emotion-row fragment" data-fragment-index="2" style="margin-top: 0.8em;">
-            <span class="emoji">🤨</span> <span class="arrow-txt">Augenbrauen hoch →</span>
+            <div class="icon-wrapper" style="color: var(--accent-light);"><i data-lucide="help-circle" style="width: 20px; height: 20px;"></i></div>
+            <span class="arrow-txt">Augenbrauen hoch →</span>
             <span class="result">"<span class="accent">Kommst du mit?</span>" <span class="dim" style="font-size:0.85em;">(Frage – Satzstellung dreht sich um!)</span></span>
         </div>
         <div class="emotion-row fragment" data-fragment-index="3" style="margin-top: 0.8em;">
-            <span class="emoji">🙅</span> <span class="arrow-txt">Kopfschütteln →</span>
+            <div class="icon-wrapper" style="color: var(--red);"><i data-lucide="x-circle" style="width: 20px; height: 20px;"></i></div>
+            <span class="arrow-txt">Kopfschütteln →</span>
             <span class="result">"Du kommst <span class="red">nicht</span> mit." <span class="dim" style="font-size:0.85em;">(Komplette Verneinung – ohne Handzeichen für "nicht"!)</span></span>
         </div>
         <div class="emotion-row fragment" data-fragment-index="4" style="margin-top: 0.8em;">
-            <span class="emoji">🤩</span> <span class="arrow-txt">Lächeln & Freude →</span>
+            <div class="icon-wrapper" style="color: var(--green);"><i data-lucide="smile-plus" style="width: 20px; height: 20px;"></i></div>
+            <span class="arrow-txt">Lächeln & Freude →</span>
             <span class="result">"<span class="green">Komm doch bitte mit!</span>" <span class="dim" style="font-size:0.85em;">(Herzliche Einladung)</span></span>
         </div>
     </div>
     <div class="highlight-box fragment" data-fragment-index="5">
-        ⚠️ <strong>Ohne Gesichtserkennung ist Gebärdensprach-KI stark eingeschränkt:</strong> Die KI könnte sonst nicht einmal eine FRAGE erkennen!
+        <i data-lucide="alert-triangle" style="width: 20px; height: 20px; color: var(--orange); flex-shrink: 0;"></i>
+        <span><strong>Ohne Gesichtserkennung ist Gebärdensprach-KI stark eingeschränkt:</strong> Die KI könnte sonst nicht einmal eine FRAGE erkennen!</span>
     </div>
 </section>
 
 <!-- ============================================ -->
 <!-- SLIDE 5: Strategy / MVP -->
-<section data-background-color="#0a0a1a">
+<section data-background-color="#090D16">
     <div class="section-label">Strategie (1,5 Jahre)</div>
     <h2>Unser <span class="green">Fokus</span></h2>
     <div class="grid-2">
         <div class="card">
-            <h3 style="font-size:0.85em; margin-top:0">🛠️ 1. Web-First Proof of Concept</h3>
+            <h3 style="font-size:0.85em; margin-top:0; display:flex; align-items:center; gap:8px;">
+                <i data-lucide="code-2" style="width: 20px; height: 20px; color: var(--accent-light);"></i>
+                <span>1. Web-First Proof of Concept</span>
+            </h3>
             <ul style="font-size:0.62em">
                 <li><strong>Start als Web-App:</strong> Läuft sofort im Browser, keine App-Store- oder Handy-Probleme beim Entwickeln</li>
                 <li><strong>50 Kernwörter (ASL/DGS):</strong> Fokus auf saubere Erkennung statt unüberlegter Massen an Wörtern</li>
@@ -203,7 +236,10 @@
             </ul>
         </div>
         <div class="card highlight">
-            <h3 style="font-size:0.85em; margin-top:0">🇦🇹 2. Vision: ÖGS & Mobile App</h3>
+            <h3 style="font-size:0.85em; margin-top:0; display:flex; align-items:center; gap:8px;">
+                <i data-lucide="smartphone" style="width: 20px; height: 20px; color: var(--green);"></i>
+                <span>2. Vision: ÖGS & Mobile App</span>
+            </h3>
             <ul style="font-size:0.62em">
                 <li>Sobald die Web-App flüssig übersetzt: Aufbau des <strong>ÖGS-Datensatzes</strong></li>
                 <li>Portierung auf eine echte Smartphone-App</li>
@@ -215,9 +251,11 @@
 
 <!-- ============================================ -->
 <!-- SLIDE 6: End -->
-<section class="end-slide" data-background-color="#0a0a1a">
-    <div style="font-size:3em; margin-bottom:0.2em">🤟</div>
-    <h1 style="background: linear-gradient(135deg, #6C63FF, #00D68F); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Signy</h1>
+<section class="end-slide" data-background-color="#090D16">
+    <div class="brand-icon-wrapper" style="margin: 0 auto 0.4em auto;">
+        <i data-lucide="hand" style="width: 40px; height: 40px;"></i>
+    </div>
+    <h1 style="background: linear-gradient(135deg, #38BDF8, #3B82F6, #6366F1); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Signy</h1>
     <p style="font-size:0.9em; color:var(--text-dim); margin-bottom:1em">
         Gebärdensprache verstehen.<br>
         <span class="accent">Barrieren abbauen.</span>
@@ -227,6 +265,7 @@
 </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
 <script>
     Reveal.initialize({
         hash: true,
@@ -236,6 +275,7 @@
         backgroundTransition: 'fade',
         controls: true, progress: true
     });
+    lucide.createIcons();
 </script>
 </body>
 </html>

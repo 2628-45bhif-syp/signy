@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Camera, BookOpen, Hand } from 'lucide-react';
 import { LiveCamera } from './components/LiveCamera';
 import { SignLibrary } from './components/SignLibrary';
 
@@ -12,7 +13,7 @@ export default function App() {
       <header className="app-header">
         <div className="brand">
           <span className="brand-icon" aria-hidden="true">
-            🤟
+            <Hand size={18} strokeWidth={2.2} />
           </span>
           <span className="brand-title">Signy</span>
         </div>
@@ -29,7 +30,9 @@ export default function App() {
               <LiveCamera />
             </div>
             <div className="translator-panel">
-              <span className="panel-label">Live Translation</span>
+              <div className="panel-header">
+                <span className="panel-label">Live Translation</span>
+              </div>
               <p className="translator-placeholder">
                 Translation output area — ready for sign recognition.
               </p>
@@ -51,7 +54,7 @@ export default function App() {
             onClick={() => setActiveSection('translator')}
           >
             <span className="nav-icon" aria-hidden="true">
-              📷
+              <Camera size={18} strokeWidth={2.2} />
             </span>
             <span>Translator</span>
           </button>
@@ -62,7 +65,7 @@ export default function App() {
             onClick={() => setActiveSection('library')}
           >
             <span className="nav-icon" aria-hidden="true">
-              📚
+              <BookOpen size={18} strokeWidth={2.2} />
             </span>
             <span>Library</span>
           </button>
