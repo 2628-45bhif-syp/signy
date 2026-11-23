@@ -74,6 +74,7 @@ describe('LiveCamera', () => {
     expect(canvas).toHaveAttribute('height', '480');
 
     expect(screen.getByText('GPU')).toBeInTheDocument();
+    expect(screen.getAllByText('Not detected')).toHaveLength(2);
 
     await waitFor(() => {
       expect(screen.queryByText('Starting camera...')).not.toBeInTheDocument();
