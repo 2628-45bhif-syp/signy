@@ -19,7 +19,7 @@
 ## 4. Integration check
 
 - [x] 4.1 Run `npm run build` in `frontend/` and verify type-check and build succeed
-- [ ] 4.2 Run `npm run dev`, open the app, and manually verify: values update live, raising a hand increases y, lowering decreases y, hiding a hand shows "Not detected", "Hide Skeleton" shows "Not detected" for both, the "Left hand" entry follows the user's own left hand, and the browser network tab shows no requests carrying frame or landmark data
+- [x] 4.2 Run `npm run dev`, open the app, and manually verify: values update live, raising a hand increases y, lowering decreases y, hiding a hand shows "Not detected", "Hide Skeleton" shows "Not detected" for both, the "Left hand" entry follows the user's own left hand, and the browser network tab shows no requests carrying frame or landmark data
 
 ## Workflow follow-up
 
