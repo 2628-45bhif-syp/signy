@@ -118,6 +118,10 @@ describe('createTracker', () => {
     expect(tracker.delegate).toBe('GPU');
 
     const video = document.createElement('video');
+    const raw = tracker.detectRaw?.(video, 50);
+    expect(mockDetect).toHaveBeenCalledWith(video, 50);
+    expect(raw?.faceLandmarks).toHaveLength(1);
+
     const frame = tracker.detect(video, 100);
 
     expect(mockDetect).toHaveBeenCalledWith(video, 100);

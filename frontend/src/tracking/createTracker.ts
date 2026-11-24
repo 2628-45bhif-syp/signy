@@ -32,6 +32,7 @@ export async function createTracker(): Promise<Tracker> {
 
   return {
     delegate,
+    detectRaw: (video, timestampMs) => landmarker.detectForVideo(video, timestampMs),
     detect: (video, timestampMs) =>
       mapResult(landmarker.detectForVideo(video, timestampMs), timestampMs),
     close: () => landmarker.close(),
