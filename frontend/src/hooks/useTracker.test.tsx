@@ -117,6 +117,92 @@ describe('useTracker', () => {
     expect(result.current.lastFrame).toBe(fakeFrame);
   });
 
+  it('continues updating lastFrame while clearing canvas when drawSkeleton is false', async () => {
+    const video = document.createElement('video');
+    Object.defineProperty(video, 'readyState', { value: 4, configurable: true });
+    Object.defineProperty(video, 'videoWidth', { value: 640, configurable: true });
+    Object.defineProperty(video, 'videoHeight', { value: 480, configurable: true });
+
+    const canvas = document.createElement('canvas');
+    const videoRef = { current: video };
+    const canvasRef = { current: canvas };
+
+    const fakeFrame: TrackingFrame = {
+      timestampMs: 456,
+      face: [{ x: 0.4, y: 0.3, z: 0, visibility: 1 }],
+      blendshapes: [],
+      pose: [],
+      leftHand: [],
+      rightHand: [],
+    };
+    mockDetect.mockReturnValue(fakeFrame);
+
+    let frameCallback: FrameRequestCallback | null = null;
+    vi.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => {
+      frameCallback = cb;
+      return 1;
+    });
+
+    const { result } = renderHook(() =>
+      useTracker(videoRef, canvasRef, { drawSkeleton: false }),
+    );
+
+    await act(async () => {
+      await Promise.resolve();
+    });
+
+    mockDrawFrame.mockClear();
+
+    act(() => {
+      frameCallback?.(200);
+    });
+
+    expect(mockDetect).toHaveBeenCalledWith(video, expect.any(Number));
+    expect(mockDrawFrame).toHaveBeenCalledWith(canvas, null);
+    expect(result.current.lastFrame).toBe(fakeFrame);
+  });
+
+  it('clears lastFrame when tracking is disabled', async () => {
+    const video = document.createElement('video');
+    Object.defineProperty(video, 'readyState', { value: 4, configurable: true });
+    Object.defineProperty(video, 'videoWidth', { value: 640, configurable: true });
+    Object.defineProperty(video, 'videoHeight', { value: 480, configurable: true });
+    const videoRef = { current: video };
+    const canvasRef = { current: document.createElement('canvas') };
+
+    const fakeFrame: TrackingFrame = {
+      timestampMs: 1,
+      face: [],
+      blendshapes: [],
+      pose: [],
+      leftHand: [{ x: 0.5, y: 0.5, z: 0, visibility: 1 }],
+      rightHand: [],
+    };
+    mockDetect.mockReturnValue(fakeFrame);
+
+    let frameCallback: FrameRequestCallback | null = null;
+    vi.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => {
+      frameCallback = cb;
+      return 1;
+    });
+
+    const { result, rerender } = renderHook(
+      ({ enabled }) => useTracker(videoRef, canvasRef, { enabled }),
+      { initialProps: { enabled: true } },
+    );
+
+    await act(async () => {
+      await Promise.resolve();
+    });
+    act(() => {
+      frameCallback?.(100);
+    });
+    expect(result.current.lastFrame).toBe(fakeFrame);
+
+    rerender({ enabled: false });
+    expect(result.current.lastFrame).toBeNull();
+  });
+
   it('closes tracker on unmount', async () => {
     const videoRef = { current: null };
     const canvasRef = { current: null };

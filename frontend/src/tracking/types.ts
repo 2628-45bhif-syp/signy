@@ -1,4 +1,7 @@
-import type { NormalizedLandmark } from '@mediapipe/tasks-vision';
+import type {
+  HolisticLandmarkerResult,
+  NormalizedLandmark,
+} from '@mediapipe/tasks-vision';
 
 export type Landmark = NormalizedLandmark;
 
@@ -38,6 +41,11 @@ export type TrackingDelegate = 'GPU' | 'CPU';
 export interface Tracker {
   /** Delegate that is actively running inference. */
   readonly delegate: TrackingDelegate;
+  /**
+   * Detect landmarks in one video frame and return the raw MediaPipe result
+   * prior to mapping. `timestampMs` must strictly increase between calls.
+   */
+  detectRaw?(video: HTMLVideoElement, timestampMs: number): HolisticLandmarkerResult;
   /**
    * Detect landmarks in one video frame. `timestampMs` must strictly increase
    * between calls (use `performance.now()`).

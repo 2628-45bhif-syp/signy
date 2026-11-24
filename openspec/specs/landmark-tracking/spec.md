@@ -42,3 +42,77 @@ The system SHALL render detected hand connections, upper-body pose lines, and fa
 #### Scenario: Clear overlay when no landmarks are detected
 - **WHEN** tracking produces no detected landmarks or the video stream stops
 - **THEN** the system clears the overlay canvas so no stale skeleton artifacts remain
+
+### Requirement: Live Head Coordinate Readout
+The system SHALL display the real-time normalized `x` and `y` coordinates of the primary head point (nose tip from the detected face mesh) directly below the live camera view, clearly labeled as `Head`, with the vertical axis inverted so `y` increases when the head moves upward and decreases when the head moves downward, and SHALL display `Not detected` whenever no face is visible.
+
+#### Scenario: Live head coordinates displayed when face is visible
+- **WHEN** a video frame is processed and face landmarks are detected
+- **THEN** the display below the camera labeled `Head` shows the current normalized `x` and inverted `y` (`1 - rawY`) coordinates rounded to two decimal places
+
+#### Scenario: Vertical head movement reflects natural up/down direction
+- **WHEN** the signer moves their head upward in the camera frame (decreasing raw MediaPipe `y`)
+- **THEN** the displayed `y` coordinate for `Head` increases, and when the signer moves their head downward (increasing raw MediaPipe `y`), the displayed `y` coordinate decreases
+
+#### Scenario: No face visible in camera frame
+- **WHEN** a video frame contains no detected face landmarks or tracking has not yet produced a frame
+- **THEN** the `Head` readout displays `Not detected` instead of stale or invalid coordinate values
+
+#### Scenario: Head coordinates continue updating when skeleton overlay is hidden
+- **WHEN** the user toggles the skeleton overlay off while the camera stream is active
+- **THEN** the visual skeleton canvas is hidden while the `Head` coordinate readout below the camera continues updating in real time
+
+### Requirement: Live Hand Coordinate Readout
+The system SHALL display, below the live camera image, the x and y coordinates of the wrist landmark of the left hand and of the right hand, each clearly labeled "Left hand" and "Right hand", and SHALL update them with every tracked frame.
+
+#### Scenario: Both hands visible
+- **WHEN** tracking produces landmarks for both the left and the right hand
+- **THEN** the readout below the camera shows x and y wrist coordinates under the "Left hand" label and under the "Right hand" label
+
+#### Scenario: Hand moves
+- **WHEN** a visible hand moves between two tracked frames
+- **THEN** the displayed coordinates for that hand change to reflect the new wrist position without user interaction
+
+### Requirement: Upward-Positive Y Axis in Readout
+The readout SHALL present y so that a higher hand position yields a higher value, by inverting the raw normalized image y coordinate (displayed y = 1 - raw y), keeping values in the range 0 to 1. The x coordinate SHALL be displayed as the raw normalized value.
+
+#### Scenario: Hand moves up
+- **WHEN** a visible hand moves upward in the camera image
+- **THEN** its displayed y value increases
+
+#### Scenario: Hand moves down
+- **WHEN** a visible hand moves downward in the camera image
+- **THEN** its displayed y value decreases
+
+### Requirement: Undetected Hand Indication
+For a hand without landmarks in the current frame, the readout SHALL show "Not detected" instead of coordinates and SHALL NOT show stale or invalid values.
+
+#### Scenario: One hand out of view
+- **WHEN** tracking produces landmarks for the right hand but none for the left hand
+- **THEN** the "Left hand" entry shows "Not detected" and the "Right hand" entry shows its current coordinates
+
+#### Scenario: Hand leaves the frame
+- **WHEN** a hand that was previously detected is no longer detected in the latest frame
+- **THEN** its entry shows "Not detected" instead of its last known coordinates
+
+#### Scenario: Tracking switched off
+- **WHEN** the user disables tracking via the skeleton toggle, or no frame has been tracked yet
+- **THEN** both entries show "Not detected" and no previously tracked coordinates remain visible
+
+### Requirement: Local-Only Coordinate Source
+The coordinates shown in the readout SHALL come exclusively from the on-device landmark tracking, without sending video frames or landmark data to any external server.
+
+#### Scenario: Readout during live tracking
+- **WHEN** the readout updates during live tracking
+- **THEN** no network request containing video frames or landmark data is made
+
+### Requirement: Frame Processing Budget Under 33 ms
+The system SHALL benchmark single-frame landmark tracking and rendering across 640x480 video input — measuring MediaPipe Holistic inference, result mapping, head and hand coordinate extraction, and skeleton overlay drawing — and SHALL complete application frame processing (result mapping, coordinate extraction, and skeleton overlay rendering) with a 95th-percentile (`p95`) duration strictly below 33 ms per frame (30 FPS) after initial model warm-up.
+
+#### Scenario: Pipeline benchmark against 640x480 sign video frames
+- **WHEN** a sequence of 640x480 video frames containing a visible signer is processed through the full tracking pipeline after warm-up frames
+- **THEN** each pipeline stage (inference, result mapping and coordinate selection, and canvas overlay drawing) is measured and the 95th-percentile frame processing duration of the mapping, coordinate extraction, and rendering stages is strictly less than 33 ms
+
+#### Scenario: Stage-by-stage timing breakdown
+- **WHEN** the frame processing performance benchmark runs
+- **THEN** the benchmark records and outputs separate timing metrics (including minimum, average, median, 95th-percentile, and maximum duration in milliseconds, plus `< 33 ms` pass/warn status) for landmark inference, result mapping/coordinate extraction, skeleton canvas rendering, combined application processing, and total per-frame execution

@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { createTracker } from '../tracking/createTracker';
 import { drawFrame } from '../tracking/drawFrame';
 import type { Tracker, TrackingDelegate, TrackingFrame } from '../tracking/types';
 
 export interface UseTrackerOptions {
   enabled?: boolean;
+  drawSkeleton?: boolean;
 }
 
 export interface UseTrackerResult {
@@ -20,12 +21,20 @@ export function useTracker(
   canvasRef: React.RefObject<HTMLCanvasElement | null>,
   options: UseTrackerOptions = {},
 ): UseTrackerResult {
-  const { enabled = true } = options;
+  const { enabled = true, drawSkeleton = true } = options;
   const [tracker, setTracker] = useState<Tracker | null>(null);
   const [delegate, setDelegate] = useState<TrackingDelegate | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [lastFrame, setLastFrame] = useState<TrackingFrame | null>(null);
+  const drawSkeletonRef = useRef<boolean>(drawSkeleton);
+  drawSkeletonRef.current = drawSkeleton;
+
+  useEffect(() => {
+    if (!drawSkeleton && canvasRef.current) {
+      drawFrame(canvasRef.current, null);
+    }
+  }, [drawSkeleton, canvasRef]);
 
   useEffect(() => {
     let cancelled = false;
@@ -66,6 +75,7 @@ export function useTracker(
     const canvas = canvasRef.current;
 
     if (!enabled || !tracker || !video || !canvas) {
+      setLastFrame(null);
       if (canvas) {
         drawFrame(canvas, null);
       }
@@ -95,7 +105,7 @@ export function useTracker(
 
         const frame = tracker.detect(video, timestamp);
         setLastFrame(frame);
-        drawFrame(canvas, frame);
+        drawFrame(canvas, drawSkeletonRef.current ? frame : null);
       }
 
       schedule();
@@ -127,6 +137,7 @@ export function useTracker(
       } else {
         cancelAnimationFrame(handle);
       }
+      setLastFrame(null);
       drawFrame(canvas, null);
     };
   }, [enabled, tracker, videoRef, canvasRef]);

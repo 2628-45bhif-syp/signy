@@ -74,6 +74,7 @@ describe('LiveCamera', () => {
     expect(canvas).toHaveAttribute('height', '480');
 
     expect(screen.getByText('GPU')).toBeInTheDocument();
+    expect(screen.getAllByText('Not detected')).toHaveLength(3);
 
     await waitFor(() => {
       expect(screen.queryByText('Starting camera...')).not.toBeInTheDocument();
@@ -111,5 +112,123 @@ describe('LiveCamera', () => {
 
     const alert = await screen.findByRole('alert');
     expect(alert).toHaveTextContent('Camera error: Permission denied');
+  });
+
+  it('displays "Not detected" for Head when lastFrame is null or face landmarks are empty', async () => {
+    const { rerender } = render(<LiveCamera />);
+
+    await waitFor(() => {
+      expect(screen.queryByText('Starting camera...')).not.toBeInTheDocument();
+    });
+
+    expect(screen.getByText('Head')).toBeInTheDocument();
+    expect(screen.getAllByText('Not detected')).toHaveLength(3);
+
+    mockUseTracker.mockReturnValue({
+      tracker: { delegate: 'GPU', detect: vi.fn(), close: vi.fn() },
+      delegate: 'GPU',
+      isLoading: false,
+      error: null,
+      lastFrame: {
+        timestampMs: 100,
+        face: [],
+        blendshapes: [],
+        pose: [],
+        leftHand: [],
+        rightHand: [],
+      },
+    });
+
+    rerender(<LiveCamera />);
+    expect(screen.getAllByText('Not detected')).toHaveLength(3);
+  });
+
+  it('displays live Head coordinates with inverted Y axis (moving up increases Y)', async () => {
+    mockUseTracker.mockReturnValue({
+      tracker: { delegate: 'GPU', detect: vi.fn(), close: vi.fn() },
+      delegate: 'GPU',
+      isLoading: false,
+      error: null,
+      lastFrame: {
+        timestampMs: 100,
+        face: [
+          { x: 0.5, y: 0.5, z: 0, visibility: 1 },
+          { x: 0.45, y: 0.6, z: 0, visibility: 1 }, // raw y = 0.60 -> inverted Y = 0.40
+        ],
+        blendshapes: [],
+        pose: [],
+        leftHand: [],
+        rightHand: [],
+      },
+    });
+
+    const { rerender } = render(<LiveCamera />);
+
+    await waitFor(() => {
+      expect(screen.queryByText('Starting camera...')).not.toBeInTheDocument();
+    });
+
+    expect(screen.getByText('Head')).toBeInTheDocument();
+    expect(screen.getByTestId('head')).toHaveTextContent(/x 0\.450\s+y 0\.400/);
+
+    // Move head upward in camera frame (raw y decreases from 0.60 to 0.25 -> displayed Y increases to 0.75)
+    mockUseTracker.mockReturnValue({
+      tracker: { delegate: 'GPU', detect: vi.fn(), close: vi.fn() },
+      delegate: 'GPU',
+      isLoading: false,
+      error: null,
+      lastFrame: {
+        timestampMs: 133,
+        face: [
+          { x: 0.5, y: 0.5, z: 0, visibility: 1 },
+          { x: 0.48, y: 0.25, z: 0, visibility: 1 },
+        ],
+        blendshapes: [],
+        pose: [],
+        leftHand: [],
+        rightHand: [],
+      },
+    });
+
+    rerender(<LiveCamera />);
+    expect(screen.getByTestId('head')).toHaveTextContent(/x 0\.480\s+y 0\.750/);
+  });
+
+  it('keeps Head coordinates visible and updating when skeleton overlay is hidden', async () => {
+    mockUseTracker.mockReturnValue({
+      tracker: { delegate: 'GPU', detect: vi.fn(), close: vi.fn() },
+      delegate: 'GPU',
+      isLoading: false,
+      error: null,
+      lastFrame: {
+        timestampMs: 200,
+        face: [
+          { x: 0.5, y: 0.5, z: 0, visibility: 1 },
+          { x: 0.52, y: 0.38, z: 0, visibility: 1 },
+        ],
+        blendshapes: [],
+        pose: [],
+        leftHand: [],
+        rightHand: [],
+      },
+    });
+
+    render(<LiveCamera />);
+
+    await waitFor(() => {
+      expect(screen.queryByText('Starting camera...')).not.toBeInTheDocument();
+    });
+
+    const button = screen.getByRole('button', { name: /skeleton/i });
+    act(() => {
+      fireEvent.click(button);
+    });
+
+    expect(mockUseTracker).toHaveBeenLastCalledWith(
+      expect.anything(),
+      expect.anything(),
+      { drawSkeleton: false },
+    );
+    expect(screen.getByTestId('head')).toHaveTextContent(/x 0\.520\s+y 0\.620/);
   });
 });
