@@ -74,6 +74,7 @@ describe('LiveCamera', () => {
     expect(canvas).toHaveAttribute('height', '480');
 
     expect(screen.getByText('GPU')).toBeInTheDocument();
+    expect(screen.getAllByText('Not detected')).toHaveLength(3);
 
     await waitFor(() => {
       expect(screen.queryByText('Starting camera...')).not.toBeInTheDocument();
@@ -121,7 +122,7 @@ describe('LiveCamera', () => {
     });
 
     expect(screen.getByText('Head')).toBeInTheDocument();
-    expect(screen.getByText('Not detected')).toBeInTheDocument();
+    expect(screen.getAllByText('Not detected')).toHaveLength(3);
 
     mockUseTracker.mockReturnValue({
       tracker: { delegate: 'GPU', detect: vi.fn(), close: vi.fn() },
@@ -139,7 +140,7 @@ describe('LiveCamera', () => {
     });
 
     rerender(<LiveCamera />);
-    expect(screen.getByText('Not detected')).toBeInTheDocument();
+    expect(screen.getAllByText('Not detected')).toHaveLength(3);
   });
 
   it('displays live Head coordinates with inverted Y axis (moving up increases Y)', async () => {

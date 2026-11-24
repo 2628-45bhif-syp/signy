@@ -26,9 +26,7 @@ export default function App() {
       <main className="app-main">
         {activeSection === 'translator' ? (
           <section className="view-section" aria-label="Camera and Translator">
-            <div className="camera-card">
-              <LiveCamera />
-            </div>
+            <LiveCamera />
             <div className="translator-panel">
               <div className="panel-header">
                 <span className="panel-label">Live Translation</span>

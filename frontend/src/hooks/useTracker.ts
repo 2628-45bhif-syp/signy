@@ -137,6 +137,7 @@ export function useTracker(
       } else {
         cancelAnimationFrame(handle);
       }
+      setLastFrame(null);
       drawFrame(canvas, null);
     };
   }, [enabled, tracker, videoRef, canvasRef]);

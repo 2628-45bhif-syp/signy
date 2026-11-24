@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { Cpu, Layers, Loader2, AlertCircle } from 'lucide-react';
 import { useCamera } from '../hooks/useCamera';
 import { useTracker } from '../hooks/useTracker';
+import { HandCoordinates } from './HandCoordinates';
 
 export function LiveCamera() {
   const { videoRef, error: cameraError, isLoading: isCameraLoading } = useCamera();
@@ -105,6 +106,8 @@ export function LiveCamera() {
           </span>
         </div>
       </div>
+
+      <HandCoordinates frame={lastFrame} />
     </div>
   );
 }

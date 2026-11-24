@@ -438,6 +438,33 @@ body {
   font-weight: 700;
 }
 
+/* Hand Coordinates */
+.hand-coordinates {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.hand-coordinates-entry {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hand-coordinates-values {
+  font-family: ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
+
+.hand-coordinates-missing {
+  color: var(--text-dim);
+}
+
 .translator-placeholder {
   font-size: 1.02rem;
   color: var(--text-dim);
