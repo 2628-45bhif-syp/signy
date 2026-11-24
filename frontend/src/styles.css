@@ -217,12 +217,6 @@ body {
   flex-direction: column;
 }
 
-.camera-stage {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
 .camera-video-wrapper {
   position: relative;
   width: 100%;
@@ -231,45 +225,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.camera-coords-bar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 12px 16px;
-  background: rgba(15, 22, 35, 0.9);
-  border-top: 1px solid var(--border-subtle);
-}
-
-.camera-coord-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 0.85rem;
-}
-
-.camera-coord-label {
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--accent-light);
-}
-
-.camera-coord-value {
-  font-variant-numeric: tabular-nums;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.camera-coord-value.not-detected {
-  font-family: inherit;
-  font-weight: 500;
-  color: var(--text-dim);
 }
 
 .camera-video {
@@ -438,10 +393,10 @@ body {
   font-weight: 700;
 }
 
-/* Hand Coordinates */
+/* Tracking Coordinates (Head & Hands) */
 .hand-coordinates {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
 }
 
@@ -453,15 +408,22 @@ body {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: var(--shadow-sm), var(--hairline);
 }
 
 .hand-coordinates-values {
-  font-family: ui-monospace, monospace;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-variant-numeric: tabular-nums;
+  font-size: 0.88rem;
+  font-weight: 600;
   color: var(--text-primary);
 }
 
 .hand-coordinates-missing {
+  font-size: 0.88rem;
+  font-weight: 500;
   color: var(--text-dim);
 }
 

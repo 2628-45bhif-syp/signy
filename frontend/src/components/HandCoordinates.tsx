@@ -1,26 +1,33 @@
-import { selectHandPoint, type HandSide } from '../tracking/hands';
+import { selectHandPoint, selectHeadPoint, type HandPoint } from '../tracking/hands';
 import type { TrackingFrame } from '../tracking/types';
 
-const HANDS: { side: HandSide; label: string }[] = [
-  { side: 'left', label: 'Left hand' },
-  { side: 'right', label: 'Right hand' },
+const PANELS: {
+  id: string;
+  label: string;
+  select: (frame: TrackingFrame | null) => HandPoint | null;
+}[] = [
+  { id: 'head', label: 'Head', select: selectHeadPoint },
+  { id: 'hand-left', label: 'Left hand', select: (f) => selectHandPoint(f, 'left') },
+  { id: 'hand-right', label: 'Right hand', select: (f) => selectHandPoint(f, 'right') },
 ];
 
-/** Live wrist x/y of both hands (y: up = higher), or "Not detected". */
+/** Live x/y of head and both hands (y: up = higher), or "Not detected". */
 export function HandCoordinates({ frame }: { frame: TrackingFrame | null }) {
   return (
-    <div className="hand-coordinates" aria-label="Hand coordinates">
-      {HANDS.map(({ side, label }) => {
-        const point = selectHandPoint(frame, side);
+    <div className="hand-coordinates" aria-label="Live tracking coordinates">
+      {PANELS.map(({ id, label, select }) => {
+        const point = select(frame);
         return (
-          <div key={side} className="hand-coordinates-entry" data-testid={`hand-${side}`}>
+          <div key={id} className="hand-coordinates-entry" data-testid={id}>
             <span className="panel-label">{label}</span>
             {point ? (
-              <span className="hand-coordinates-values">
+              <span className="hand-coordinates-values" aria-live="polite">
                 x {point.x.toFixed(3)} &nbsp; y {point.y.toFixed(3)}
               </span>
             ) : (
-              <span className="hand-coordinates-missing">Not detected</span>
+              <span className="hand-coordinates-missing" aria-live="polite">
+                Not detected
+              </span>
             )}
           </div>
         );

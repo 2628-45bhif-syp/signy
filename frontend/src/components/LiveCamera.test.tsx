@@ -169,7 +169,7 @@ describe('LiveCamera', () => {
     });
 
     expect(screen.getByText('Head')).toBeInTheDocument();
-    expect(screen.getByText('X: 0.45, Y: 0.40')).toBeInTheDocument();
+    expect(screen.getByTestId('head')).toHaveTextContent(/x 0\.450\s+y 0\.400/);
 
     // Move head upward in camera frame (raw y decreases from 0.60 to 0.25 -> displayed Y increases to 0.75)
     mockUseTracker.mockReturnValue({
@@ -191,7 +191,7 @@ describe('LiveCamera', () => {
     });
 
     rerender(<LiveCamera />);
-    expect(screen.getByText('X: 0.48, Y: 0.75')).toBeInTheDocument();
+    expect(screen.getByTestId('head')).toHaveTextContent(/x 0\.480\s+y 0\.750/);
   });
 
   it('keeps Head coordinates visible and updating when skeleton overlay is hidden', async () => {
@@ -229,6 +229,6 @@ describe('LiveCamera', () => {
       expect.anything(),
       { drawSkeleton: false },
     );
-    expect(screen.getByText('X: 0.52, Y: 0.62')).toBeInTheDocument();
+    expect(screen.getByTestId('head')).toHaveTextContent(/x 0\.520\s+y 0\.620/);
   });
 });
