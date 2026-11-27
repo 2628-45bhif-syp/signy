@@ -38,3 +38,21 @@ All git commits MUST follow the Conventional Commits specification:
   - `docs: update system specification`
   - `chore: clean up project structure`
   - `refactor(pitch): streamline presentation slides`
+
+## Git Branching Strategy
+
+- **Long-Lived Branches & Executable Stability**:
+  - `main`: Production/release branch representing verified sprint milestones.
+  - `dev`: Primary integration branch for ongoing sprint development.
+  - **Strict Invariant**: Both `main` and `dev` MUST build and run without errors at all times. Never push or merge broken code to `main` or `dev`.
+- **Issue Branch Naming & Flow**:
+  - Branch from `dev` for every user story or task using `<type>/<issue-number>-<short-description>`, where `<type>` matches the Conventional Commits types above (`feat`, `fix`, `docs`, `chore`, `refactor`, `ci`, `test`).
+  - Examples: `feat/25-head-tracking`, `fix/30-camera-crash`, `docs/18-backlog-hierarchy`.
+  - When a user story or task is complete and verified executable, merge the branch back into `dev`.
+- **Sprint Release Flow (`dev -> main`)**:
+  - Prior to each sprint review, verify `dev` is stable and merge `dev` directly into `main`.
+  - Tag the release commit on `main` using semantic versioning (`vX.Y.Z`, e.g., `v0.1.0`, `v0.2.0`).
+- **Hotfix Flow**:
+  - If a critical bug is discovered on `main`, branch from `main` using `fix/<issue-number>-<short-description>` (or `hotfix/<version>-<short-description>`), fix and verify, then merge into both `main` and `dev`.
+- **Branch Retention Policy**:
+  - Do **NOT** delete merged branches unless explicitly requested, preserving commit and branch history for project grading.

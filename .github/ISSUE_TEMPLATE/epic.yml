@@ -1,0 +1,25 @@
+name: Epic
+description: Create a high-level Epic grouping multiple related User Stories
+title: "[EPIC] "
+labels: ["epic"]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Epic Goal
+      description: "What big capability or theme does this Epic deliver, and why?"
+      placeholder: "Analyze facial expressions and emotions from MediaPipe blendshapes to show live feedback and enrich German sentence translation."
+    validations:
+      required: true
+
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Acceptance Criteria / Outcome
+      description: "What must be true across the system for this Epic to be considered complete? (Link child User Stories via GitHub's native Sub-issues feature.)"
+      placeholder: |
+        - [ ] Signer's facial expressions / emotions are tracked in real time
+        - [ ] Detected emotional state is visible in the UI
+        - [ ] Emotional/grammatical markers are reflected in translated sentences
+    validations:
+      required: true

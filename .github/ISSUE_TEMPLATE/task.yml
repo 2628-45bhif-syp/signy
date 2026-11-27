@@ -1,0 +1,39 @@
+name: Task
+description: Create a technical implementation task under a User Story
+title: "[TASK] "
+labels: ["task"]
+body:
+  - type: dropdown
+    id: type
+    attributes:
+      label: Task Type (Branch Prefix)
+      description: "Matches our Git Commit & Branching Convention: <type>/<issue-number>-<short-description>"
+      options:
+        - "feat - New feature or capability"
+        - "fix - Bug fix"
+        - "refactor - Code restructuring"
+        - "test - Adding or updating tests"
+        - "docs - Documentation only"
+        - "chore - Build, tooling, or maintenance"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: "What needs to be implemented or changed?"
+      placeholder: "Add a panel below the camera feed that displays the currently detected emotion (or 'Nicht erkannt' when no face is visible)."
+    validations:
+      required: true
+
+  - type: textarea
+    id: dod
+    attributes:
+      label: Definition of Done
+      description: "Concrete technical steps to complete and verify this task."
+      placeholder: |
+        - [ ] Implementation finished
+        - [ ] Tested and executable on `dev`
+    validations:
+      required: true

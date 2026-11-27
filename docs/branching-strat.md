@@ -1,27 +1,32 @@
 # Branching Strategy
 
-Make sure to use the branching strategy correctly as stated here (@adirnberger-htl):  
+Make sure to use the branching strategy correctly as stated here (@adirnberger-htl) and enforced in `AGENTS.md`:
 
-## Git-Flow Workflow Diagram
-Look at [5.1.2. Branching-Strategies](https://2526-3bhif-syp.github.io/2526-3bhif-syp-lecture-notes/#:~:text=5%2E1%2E2%2E%20Branching%2DStrategies) for reference  
-
-(Note that in the following image the Review branch is called Release. We'll label it as "Release" for clarity purposes.)
+## Git-Flow Reference Diagram
+Look at [5.1.2. Branching-Strategies](https://2526-3bhif-syp.github.io/2526-3bhif-syp-lecture-notes/#:~:text=5%2E1%2E2%2E%20Branching%2DStrategies) for general Git-Flow background.
 
 ![alt text](https://2526-3bhif-syp.github.io/2526-3bhif-syp-lecture-notes/images/gitflow_diagram_gfg.png)
 
-## Explanation  
+## Unified Workflow Rules
 
-The Dev branch will be the branch we'll be working on primarily.  
+### 1. Long-Lived Branches (`main` and `dev`)
+- `dev` is the primary integration branch we work from and merge completed work into.
+- `main` is the production/release branch presented at sprint reviews.
+- **Executable Invariant:** Both `main` and `dev` **must build and run at all times**. Only merge tested, working code into `dev` or `main`.
 
-Whenever we begin with a new feature, we create a new branch and work on the branch until it is done.  
-We'll use the naming-convention "feat/***issueNumber***-***shortDescription/featureName***"  (example: "feat/15-mediapipe-tracking)  
-Once it is done, we merge the feature branch and **delete** it.  
+### 2. Issue Branches (`<type>/<issue-number>-<short-description>`)
+- Whenever we begin work on a user story or task, create a new branch off `dev`.
+- Use the naming convention `<type>/<issue-number>-<short-description>`, where `<type>` matches our Conventional Commit types (`feat`, `fix`, `docs`, `chore`, `refactor`, `ci`, `test`).
+  - Examples: `feat/15-mediapipe-tracking`, `feat/25-head-tracking`, `fix/30-camera-crash`, `docs/18-backlog-hierarchy`.
+- Once the task or user story is finished and verified executable, merge the branch back into `dev`.
 
-As soon as all the features that were agreed on to be finished until the next spring are finished, we create a ***Review branch*** and present the review branch.  
-We'll use the naming-convention "Review/***number***"  (example: "Review/2.0)  
-If everything is in order, we merge the branch with main and have a new release.  
+### 3. Sprint Releases (`dev -> main`)
+- Prior to each sprint review, once all agreed sprint features on `dev` are complete and verified, merge `dev` directly into `main`.
+- Tag the release on `main` with a semantic version tag (`vX.Y.Z`, e.g., `v0.1.0`, `v0.2.0`).
 
-In case we have any major bugs in the release branch (unlikely but still possible) we create a ***Hotfix branch*** from main and merge that with main and dev as soon as the bug is fixed.  
-We'll use the naming-convention "Hotfix/***mainVersionNumber***"  (example: "Hotfix/2.0) 
+### 4. Hotfixes
+- In case a critical bug is found on `main`, create a hotfix branch off `main` (`fix/<issue-number>-<short-description>` or `hotfix/<version>-<short-description>`).
+- As soon as the bug is fixed and verified, merge the branch into both `main` and `dev`.
 
-Make sure **not to delete** any branches unless needed.
+### 5. Branch Retention Policy
+- Make sure **not to delete** merged branches unless explicitly needed, so full contribution and branch history remains visible for project grading.
